@@ -1,6 +1,5 @@
 package com.me.traveler.strategy;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.me.traveler.MyApplication;
 import com.me.traveler.R;
 import com.me.traveler.entity.StrategyIntro;
-import com.me.traveler.util.ListViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -22,11 +20,9 @@ import java.util.List;
  */
 public class StrategyDetailAdapter extends RecyclerView.Adapter<StrategyDetailAdapter.ViewHolder> {
 
-    private LayoutInflater mInflater;
     private List<StrategyIntro> mDataList;
-    private View mRootView;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
         public ImageView mImageView;
         public ViewHolder(View rootView) {
@@ -46,9 +42,9 @@ public class StrategyDetailAdapter extends RecyclerView.Adapter<StrategyDetailAd
     public StrategyDetailAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        mRootView = LayoutInflater.from(parent.getContext())
+        View rootView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_strategy_detail, parent, false);
-        return new StrategyDetailAdapter.ViewHolder(mRootView);
+        return new StrategyDetailAdapter.ViewHolder(rootView);
     }
 
     @Override

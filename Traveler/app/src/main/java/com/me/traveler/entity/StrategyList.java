@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/2/26.
  */
-public class StrategyResponse {
+public class StrategyList {
     @SerializedName("errMsg")
     private String mMsg;
     @SerializedName("resultStatus")

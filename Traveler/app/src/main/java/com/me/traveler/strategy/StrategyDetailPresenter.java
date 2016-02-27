@@ -1,17 +1,9 @@
 package com.me.traveler.strategy;
 
-import com.me.traveler.entity.StrategyDay;
-import com.me.traveler.entity.StrategyDetailResponse;
-import com.me.traveler.entity.StrategyInfo;
-import com.me.traveler.entity.StrategyIntro;
-import com.me.traveler.entity.StrategyResponse;
+import com.me.traveler.entity.StrategyDetail;
 
-import java.util.List;
-
-import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -20,11 +12,11 @@ import rx.schedulers.Schedulers;
 public class StrategyDetailPresenter {
 
     private IStrategyDetailView mView;
-    private StrategyDetailService mService;
+    private IStrategyApiService mService;
 
     public StrategyDetailPresenter(IStrategyDetailView view){
         mView = view;
-        mService = new StrategyDetailService();
+        mService = new StrategyApiService();
     }
 
     public void loadStrategyDetail(String guidesId){
@@ -32,7 +24,7 @@ public class StrategyDetailPresenter {
         mService.getStrategyDetail(request.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StrategyDetailResponse>() {
+                .subscribe(new Observer<StrategyDetail>() {
                     @Override
                     public void onCompleted() {
 
@@ -44,33 +36,11 @@ public class StrategyDetailPresenter {
                     }
 
                     @Override
-                    public void onNext(StrategyDetailResponse strategyDetailResponse) {
+                    public void onNext(StrategyDetail strategyDetail) {
 
-                        mView.showStrategyDetail(strategyDetailResponse.getData().getGuidesInfoData().get(0).getStrategyIntro());
+                        mView.showStrategyDetail(strategyDetail.getData().getGuidesInfoData().get(0).getStrategyIntro());
                     }
                 });
-//                .flatMap(new Func1<StrategyDetailResponse, Observable<StrategyDay>>() {
-//                    @Override
-//                    public Observable<StrategyDay> call(StrategyDetailResponse response) {
-//                        return Observable.from(response.getData());
-//                    }
-//                })
-//                .subscribe(new Observer<StrategyDay>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onNext(StrategyDay strategyDay) {
-//                        mView.showStrategyDetail(strategyDay.getStrategyIntro());
-//                    }
-//                });
 
     }
 }

@@ -60,7 +60,7 @@ public class MyApplication extends Application {
         }
 
         // 用存储缓存图片的文件夹
-        File cacheFileDir = new File(cachePath,"/jingdianyou/images");
+        File cacheFileDir = new File(cachePath,"/traveler/images");
 
         cacheFileDir.mkdirs();
 

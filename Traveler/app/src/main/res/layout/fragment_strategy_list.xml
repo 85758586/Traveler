@@ -5,8 +5,8 @@
              tools:context="com.me.traveler.strategy.StrategyListFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView
-        android:id="@+id/strategy_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

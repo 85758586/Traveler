@@ -1,14 +1,11 @@
 package com.me.traveler.strategy;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.me.traveler.R;
 
-public class StrategyListActivity extends AppCompatActivity implements StrategyListFragment.OnFragmentInteractionListener {
+public class StrategyListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,14 +14,10 @@ public class StrategyListActivity extends AppCompatActivity implements StrategyL
 
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new StrategyListFragment())
+                    .replace(R.id.container, StrategyListFragment.newInstance())
                     .commit();
         }
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

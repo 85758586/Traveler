@@ -2,7 +2,6 @@ package com.me.traveler.http;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.me.traveler.constant.Api;
-import com.me.traveler.strategy.IStrategyListApi;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -12,11 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Administrator on 2016/2/27.
  */
-public class RetrofitApiProviderImpl<T> implements IRetrofitApiProvider<T> {
+public class RetrofitProviderImpl<T> implements IRetrofitProvider<T> {
 
     private OkHttpClient mClient;
 
-    public RetrofitApiProviderImpl() {
+    public RetrofitProviderImpl() {
         new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
         mClient = new OkHttpClient();
     }

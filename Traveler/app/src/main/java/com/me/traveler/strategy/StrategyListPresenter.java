@@ -2,7 +2,7 @@ package com.me.traveler.strategy;
 
 import android.util.Log;
 
-import com.me.traveler.entity.StrategyResponse;
+import com.me.traveler.entity.StrategyList;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -14,11 +14,11 @@ import rx.schedulers.Schedulers;
 public class StrategyListPresenter {
 
     private IStrategyListView mView;
-    private StrategyListService mService;
+    private IStrategyApiService mService;
 
     public StrategyListPresenter(IStrategyListView view){
         mView = view;
-        mService = new StrategyListService();
+        mService = new StrategyApiService();
     }
 
     public void loadStrategyList(){
@@ -27,7 +27,7 @@ public class StrategyListPresenter {
         mService.getStrategyList(request.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<StrategyResponse>() {
+                .subscribe(new Observer<StrategyList>() {
                     @Override
                     public void onCompleted() {
                         Log.d("strategylist", "onCompleted");
@@ -39,8 +39,8 @@ public class StrategyListPresenter {
                     }
 
                     @Override
-                    public void onNext(StrategyResponse strategyResponse) {
-                        mView.showStrategyList(strategyResponse);
+                    public void onNext(StrategyList strategyList) {
+                        mView.showStrategyList(strategyList);
                     }
                 });
     }

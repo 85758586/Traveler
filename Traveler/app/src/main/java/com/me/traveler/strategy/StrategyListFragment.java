@@ -5,16 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 
 import com.me.traveler.R;
 import com.me.traveler.entity.Strategy;
-import com.me.traveler.entity.StrategyResponse;
+import com.me.traveler.entity.StrategyList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +21,9 @@ import java.util.List;
 
 public class StrategyListFragment extends Fragment implements IStrategyListView{
 
-    private OnFragmentInteractionListener mListener;
     private StrategyListPresenter mPresenter;
     private StrategyListAdapter mAdapter;
-    private List<Strategy> mStrategyList;
+    private List<Strategy> mStrategyList = new ArrayList<>();
 
     public StrategyListFragment() {
         // Required empty public constructor
@@ -59,56 +57,25 @@ public class StrategyListFragment extends Fragment implements IStrategyListView{
         mPresenter.loadStrategyList();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
-    public void showStrategyList(StrategyResponse response) {
-        mStrategyList = response.getData();
-        mAdapter.setDataList(mStrategyList);
+    public void showStrategyList(StrategyList response) {
+        mStrategyList.clear();
+        mStrategyList.addAll(response.getData());
         mAdapter.notifyDataSetChanged();
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onStrategyClicked(Strategy strategy) {
+        Intent intent = new Intent(getContext(), StrategyDetailActivity.class);
+        intent.putExtra("GuidesId", strategy.getGuidesId());
+        startActivity(intent);
     }
 
     private void initControls(View view){
-        final ListView strategyList = (ListView)view.findViewById(R.id.strategy_list);
-        mAdapter = new StrategyListAdapter(getContext());
+        RecyclerView strategyList = (RecyclerView)view.findViewById(R.id.recycler);
+        strategyList.setHasFixedSize(true);
+        strategyList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter = new StrategyListAdapter(mStrategyList, this);
         strategyList.setAdapter(mAdapter);
-
-        strategyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(getContext(), StrategyDetailActivity.class);
-                intent.putExtra("GuidesId", mStrategyList.get(position).getGuidesId());
-                startActivity(intent);
-            }
-        });
-
     }
 }

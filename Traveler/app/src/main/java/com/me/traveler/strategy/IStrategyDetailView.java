@@ -1,6 +1,5 @@
 package com.me.traveler.strategy;
 
-import com.me.traveler.entity.StrategyInfo;
 import com.me.traveler.entity.StrategyIntro;
 
 import java.util.List;
