@@ -1,13 +1,10 @@
 package com.me.traveler.strategy;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.me.traveler.constant.Api;
-import com.me.traveler.entity.Ticket;
+import com.me.traveler.entity.StrategyDetailResponse;
+import com.me.traveler.entity.StrategyInfo;
+import com.me.traveler.entity.StrategyResponse;
+import com.me.traveler.http.RetrofitApiProviderImpl;
 
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
 /**
@@ -15,20 +12,14 @@ import rx.Observable;
  */
 public class StrategyDetailService {
     private IStrategyDetailApi mService;
+    private RetrofitApiProviderImpl<IStrategyDetailApi> mProvider;
 
     public StrategyDetailService(){
-        new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
-        OkHttpClient client = new OkHttpClient();
-        mService = new Retrofit.Builder()
-                .baseUrl(Api.SERVER_IP)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(client)
-                .build()
-                .create(IStrategyDetailApi.class);
+        mProvider = new RetrofitApiProviderImpl<>();
+        mService = mProvider.getRetrofitApi(IStrategyDetailApi.class);
     }
 
-    public Observable<Ticket> getStrategyDetail(String request){
+    public Observable<StrategyDetailResponse> getStrategyDetail(String request){
         return mService.getStrategyDetail(request);
     }
 }

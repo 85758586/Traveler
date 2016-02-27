@@ -1,5 +1,6 @@
 package com.me.traveler.strategy;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,7 @@ import android.view.View;
 
 import com.me.traveler.R;
 
-public class StrategyDetailActivity extends AppCompatActivity {
+public class StrategyDetailActivity extends AppCompatActivity implements StrategyDetailFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +27,19 @@ public class StrategyDetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        String guidesId = getIntent().getStringExtra("GuidesId");
+
+        if(savedInstanceState == null){
+            StrategyDetailFragment fragment = StrategyDetailFragment.newInstance(guidesId);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

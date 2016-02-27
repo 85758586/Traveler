@@ -6,6 +6,5 @@ package com.me.traveler.constant;
 public class Api {
     public static final String SERVER_IP = "http://app.kindin.com.cn";
     public static final String STRATEGY = "/appIF/travelGuidesList.html";
-    public static final String STRATEGY_DETAIL = "/appIF/travelGuidesProduct.html";
-    public static final String SCENIC_LIST = SERVER_IP + "/appIF/scenicProductListByType.html";
+    public static final String STRATEGY_INFO = "/appIF/travelGuidesDtlDetailNew.html";
 }

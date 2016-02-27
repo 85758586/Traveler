@@ -20,17 +20,6 @@ public class StrategyListService {
     private RetrofitApiProviderImpl<IStrategyListApi> mApiProvider;
 
     public StrategyListService(){
-//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
-//        OkHttpClient client = new OkHttpClient();
-//        mService = new Retrofit.Builder()
-//                .baseUrl(Api.SERVER_IP)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                .client(client)
-//                .build()
-//                .create(IStrategyListApi.class);
         mApiProvider = new RetrofitApiProviderImpl<>();
         mService = mApiProvider.getRetrofitApi(IStrategyListApi.class);
     }
