@@ -21,8 +21,8 @@ public class StrategyListPresenter {
         mService = new StrategyApiService();
     }
 
-    public void loadStrategyList(){
-        StrategyListRequest request = new StrategyListRequest(1, 10);
+    public void loadStrategyList(int pageIndex){
+        StrategyListRequest request = new StrategyListRequest(pageIndex, 10);
 
         mService.getStrategyList(request.toString())
                 .subscribeOn(Schedulers.io())
